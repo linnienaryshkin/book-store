@@ -4,14 +4,14 @@ import { computed, onMounted, ref } from 'vue'
 
 const booksStore = useBooksStore()
 
-const citySearch = ref('')
+const bookSearch = ref('')
 // Computed values are cached and only re-evaluated when their dependencies change
-const citySearchOptions = computed(() => {
-  if (citySearch.value.length < 3) {
-    return booksStore.cities
+const bookSearchOptions = computed(() => {
+  if (bookSearch.value.length < 3) {
+    return booksStore.books
   }
-  return booksStore.cities.filter((city) =>
-    city.toLowerCase().includes(citySearch.value.toLowerCase())
+  return booksStore.books.filter((book) =>
+    book.title.toLowerCase().includes(bookSearch.value.toLowerCase())
   )
 })
 
@@ -26,21 +26,23 @@ onMounted(() => {
 <template>
   <main>
     <input
-      v-model="citySearch"
-      placeholder="Search for cities (min 3 symbols)"
+      v-model="bookSearch"
+      placeholder="Search for books, by title (min 3 symbols)"
       class="searchInput"
       ref="searchInput"
     />
 
     <table class="searchResult" border="1">
       <tr>
-        <th>City</th>
+        <th>Book Title</th>
+        <th>Book Author</th>
       </tr>
-      <tr v-for="city in citySearchOptions" :key="city">
-        <td>{{ city }}</td>
+      <tr v-for="book in bookSearchOptions" :key="book.title">
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
       </tr>
-      <tr v-if="citySearchOptions.length === 0">
-        <td>No results found</td>
+      <tr v-if="bookSearchOptions.length === 0">
+        <td colspan="2">No results found</td>
       </tr>
     </table>
   </main>
