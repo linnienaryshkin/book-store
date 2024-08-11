@@ -8,9 +8,10 @@ import BookStoreDescription from './components/BookStoreDescription.vue'
     <div class="wrapper">
       <BookStoreDescription />
 
-      <!-- <nav>
-        <RouterLink to="/">BookStore</RouterLink>
-      </nav> -->
+      <nav>
+        <RouterLink to="/">BookStoreSearch</RouterLink>
+        <RouterLink to="/cities">CitySearch</RouterLink>
+      </nav>
     </div>
   </header>
 

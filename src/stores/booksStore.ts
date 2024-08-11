@@ -58,9 +58,5 @@ export const useBooksStore = defineStore('booksStore', () => {
     }
   ])
 
-  function searchCities(query: string) {
-    return cities.value.filter((city) => city.toLowerCase().includes(query.toLowerCase()))
-  }
-
-  return { cities, books, searchCities }
+  return { cities, books }
 })
