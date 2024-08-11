@@ -7,7 +7,12 @@ const booksStore = useBooksStore()
 const citySearch = ref('')
 // Computed values are cached and only re-evaluated when their dependencies change
 const citySearchOptions = computed(() => {
-  return booksStore.cities.filter((city) => city.toLowerCase().includes(citySearch.value.toLowerCase()))
+  if (citySearch.value.length < 3) {
+    return booksStore.cities
+  }
+  return booksStore.cities.filter((city) =>
+    city.toLowerCase().includes(citySearch.value.toLowerCase())
+  )
 })
 
 const searchInput = ref(null)
@@ -18,8 +23,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="wrapper">
-    <input v-model="citySearch" placeholder="Search for cities" class="searchInput" ref="searchInput" />
+  <main>
+    <input
+      v-model="citySearch"
+      placeholder="Search for cities (min 3 symbols)"
+      class="searchInput"
+      ref="searchInput"
+    />
 
     <table class="searchResult" border="1">
       <tr>
@@ -28,19 +38,22 @@ onMounted(() => {
       <tr v-for="city in citySearchOptions" :key="city">
         <td>{{ city }}</td>
       </tr>
+      <tr v-if="citySearchOptions.length === 0">
+        <td>No results found</td>
+      </tr>
     </table>
-  </div>
+  </main>
 </template>
 
 <style scoped>
-.searchInput{
+.searchInput {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-.searchResult{
+.searchResult {
   width: 100%;
   margin-top: 10px;
   font-size: 16px;
