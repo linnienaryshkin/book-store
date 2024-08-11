@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { useBooksStore } from '@/stores/booksStore'
+import { useBooksStore, type City } from '@/stores/booksStore'
 import { computed, onMounted, ref } from 'vue'
 
 const booksStore = useBooksStore()
 
 const citySearch = ref('')
 // Computed values are cached and only re-evaluated when their dependencies change
-const citySearchOptions = computed(() => {
-  if (citySearch.value.length < 3) {
-    return booksStore.cities
-  }
-  return booksStore.cities.filter((city) =>
-    city.toLowerCase().includes(citySearch.value.toLowerCase())
-  )
-})
+const citySearchOptions = computed(
+  () => booksStore.searchEntities('city', citySearch.value) as City[]
+)
 
 const searchInput = ref(null)
-
 onMounted(() => {
   // @ts-ignore | I haven't found a way to make typescript happy with this
   searchInput.value.focus()
@@ -25,6 +19,7 @@ onMounted(() => {
 
 <template>
   <main>
+    <!-- TODO: Consider separating these input + table with a component, so that we don't duplicate code -->
     <input
       v-model="citySearch"
       placeholder="Search for cities (min 3 symbols)"

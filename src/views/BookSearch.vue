@@ -1,19 +1,14 @@
 <script setup lang="ts">
-import { useBooksStore } from '@/stores/booksStore'
+import { useBooksStore, type Book } from '@/stores/booksStore'
 import { computed, onMounted, ref } from 'vue'
 
 const booksStore = useBooksStore()
 
 const bookSearch = ref('')
 // Computed values are cached and only re-evaluated when their dependencies change
-const bookSearchOptions = computed(() => {
-  if (bookSearch.value.length < 3) {
-    return booksStore.books
-  }
-  return booksStore.books.filter((book) =>
-    book.title.toLowerCase().includes(bookSearch.value.toLowerCase())
-  )
-})
+const bookSearchOptions = computed(
+  () => booksStore.searchEntities('book', bookSearch.value) as Book[]
+)
 
 const searchInput = ref(null)
 
@@ -25,6 +20,7 @@ onMounted(() => {
 
 <template>
   <main>
+    <!-- TODO: Consider separating these input + table with a component, so that we don't duplicate code -->
     <input
       v-model="bookSearch"
       placeholder="Search for books, by title (min 3 symbols)"
