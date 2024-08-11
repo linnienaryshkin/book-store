@@ -1,6 +1,6 @@
 # book-store
 
-This template should help get you started developing with Vue 3 in Vite.
+A little search-as-you-type app for cities and books.
 
 ## Recommended IDE Setup
 
@@ -45,8 +45,6 @@ npm run lint
 ```
 
 # Challenge
-
-## Autocomplete challenge
 
 Build a Vue.js application that lets users search for a cities and books in a provided list.
 
@@ -153,11 +151,3 @@ In order to adhere to the 2-3 hour target time, we _highly_ recommend that you u
 
 - DRY code is not the only thing that matters, we also care about things getting too complex. Finding the line between writing simple and DRY code is part of the challenge.
 - One of the core challenges here is how to structure components and stores around two types of data (strings and objects), it is important to recognize that before you start writing your code.
-
-### Timeframe
-
-Take as much time as you need. We're expecting this will take you one or two evenings. (Somewhere up to 2-3 hours if you're new to Vue.)
-
-### More Questions?
-
-Please reach out to your hiring manager, we're happy to help!

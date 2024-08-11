@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import BookStore from '../components/BookStore.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <BookStore />
   </main>
 </template>
